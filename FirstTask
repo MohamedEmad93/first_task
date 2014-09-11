@@ -1,0 +1,20 @@
+class Numeric
+
+@@currencies = { dollar: 7.15, euro: 9.26, yen: 0.068 }
+
+@@currencies.each do |currency, rate|
+	define_method(currency) do
+		self * rate
+		end
+	alias_method "#{currency}s".to_sym, currency
+	end
+
+def add_currency (new = {})
+@@currencies.merge!(new)
+end
+
+def convert_currency(inputs={})
+self.send(inputs[:to])
+end	
+
+end
